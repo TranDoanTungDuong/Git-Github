@@ -10,7 +10,68 @@
     <div class="container">
         <h1>Chào mừng đến với Demo Git-GitHub</h1>
         <p>Đây là trang web demo cho bài tập Git và GitHub.</p>
-        <p>Nhánh: Frontend Development</p>
+        
+        <div class="section">
+            <h2>Thông tin API</h2>
+            <button onclick="loadApiInfo()">Lấy thông tin API</button>
+            <div id="api-info"></div>
+        </div>
+        
+        <div class="section">
+            <h2>Danh sách Users</h2>
+            <button onclick="loadUsers()">Lấy danh sách Users</button>
+            <div id="users-list"></div>
+        </div>
+        
+        <div class="section">
+            <h2>Danh sách Projects</h2>
+            <button onclick="loadProjects()">Lấy danh sách Projects</button>
+            <div id="projects-list"></div>
+        </div>
     </div>
+    
+    <script>
+        async function loadApiInfo() {
+            try {
+                const response = await fetch('/api/info');
+                const data = await response.json();
+                document.getElementById('api-info').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            } catch (error) {
+                document.getElementById('api-info').innerHTML = `<p style="color: red;">Lỗi: ${error.message}</p>`;
+            }
+        }
+        
+        async function loadUsers() {
+            try {
+                const response = await fetch('/api/users');
+                const users = await response.json();
+                const html = users.map(user => `
+                    <div class="item">
+                        <strong>${user.name}</strong> - ${user.email} (${user.role})
+                    </div>
+                `).join('');
+                document.getElementById('users-list').innerHTML = html;
+            } catch (error) {
+                document.getElementById('users-list').innerHTML = `<p style="color: red;">Lỗi: ${error.message}</p>`;
+            }
+        }
+        
+        async function loadProjects() {
+            try {
+                const response = await fetch('/api/projects');
+                const projects = await response.json();
+                const html = projects.map(project => `
+                    <div class="item">
+                        <strong>${project.name}</strong><br>
+                        ${project.description}<br>
+                        <small>Status: ${project.status}</small>
+                    </div>
+                `).join('');
+                document.getElementById('projects-list').innerHTML = html;
+            } catch (error) {
+                document.getElementById('projects-list').innerHTML = `<p style="color: red;">Lỗi: ${error.message}</p>`;
+            }
+        }
+    </script>
 </body>
 </html>

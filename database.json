@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Nguyễn Văn A",
+      "email": "nguyenvana@example.com",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "name": "Trần Thị B",
+      "email": "tranthib@example.com",
+      "role": "user"
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "name": "Git-GitHub Demo",
+      "description": "Dự án demo cho bài tập Git và GitHub",
+      "status": "active",
+      "created_by": 1
+    }
+  ]
+}
