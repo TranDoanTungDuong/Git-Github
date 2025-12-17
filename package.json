@@ -1,0 +1,13 @@
+{
+  "name": "git-github-demo",
+  "version": "1.0.0",
+  "description": "Demo project cho bài tập Git-GitHub",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["git", "github", "demo", "nodejs"],
+  "author": "Student",
+  "license": "MIT"
+}
