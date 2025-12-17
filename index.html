@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Git-GitHub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Chiều thứ 2 - ca 3</h1>
+        <h1>Chào mừng đến với Demo Git-GitHub</h1>
+        <p>Đây là trang web demo cho bài tập Git và GitHub.</p>
+        
+        <div class="section">
+            <h2>Thông tin API</h2>
+            <p><strong>✅ GitHub Pages:</strong> Frontend hoạt động tốt</p>
+            <p><strong>ℹ️ Lưu ý:</strong> Backend cần chạy riêng (node server.js)</p>
+            <button onclick="loadApiInfo()">Lấy thông tin hệ thống</button>
+            <div id="api-info"></div>
+        </div>
+        
+        <div class="section">
+            <h2>Danh sách Users</h2>
+            <button onclick="loadUsers()">Lấy danh sách Users</button>
+            <div id="users-list"></div>
+        </div>
+        
+        <div class="section">
+            <h2>Danh sách Projects</h2>
+            <button onclick="loadProjects()">Lấy danh sách Projects</button>
+            <div id="projects-list"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Dữ liệu tĩnh thay vì gọi API
+        const staticData = {
+            apiInfo: {
+                message: 'Frontend đang hoạt động trên GitHub Pages',
+                version: '1.0.0',
+                timestamp: new Date().toISOString(),
+                note: ''
+            },
+            users: [
+                {
+                    id: 1,
+                    name: "Messi Goat",
+                    email: "nguyenvana@example.com",
+                    role: "admin"
+                },
+                {
+                    id: 2,
+                    name: "CR7 bẩn tính",
+                    email: "tranthib@example.com",
+                    role: "user"
+                }
+            ],
+            projects: [
+                {
+                    id: 1,
+                    name: "Git-GitHub Demo",
+                    description: "Dự án demo cho bài tập Git và GitHub",
+                    status: "active",
+                    created_by: 1
+                }
+            ]
+        };
+
+        function loadApiInfo() {
+            const data = staticData.apiInfo;
+            document.getElementById('api-info').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        }
+        
+        function loadUsers() {
+            const users = staticData.users;
+            const html = users.map(user => `
+                <div class="item">
+                    <strong>${user.name}</strong> - ${user.email} (${user.role})
+                </div>
+            `).join('');
+            document.getElementById('users-list').innerHTML = html;
+        }
+        
+        function loadProjects() {
+            const projects = staticData.projects;
+            const html = projects.map(project => `
+                <div class="item">
+                    <strong>${project.name}</strong><br>
+                    ${project.description}<br>
+                    <small>Status: ${project.status}</small>
+                </div>
+            `).join('');
+            document.getElementById('projects-list').innerHTML = html;
+        }
+    </script>
+</body>
+</html>
