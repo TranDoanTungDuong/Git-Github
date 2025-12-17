@@ -13,7 +13,9 @@
         
         <div class="section">
             <h2>Thông tin API</h2>
-            <button onclick="loadApiInfo()">Lấy thông tin API</button>
+            <p><strong>✅ GitHub Pages:</strong> Frontend hoạt động tốt</p>
+            <p><strong>ℹ️ Lưu ý:</strong> Backend cần chạy riêng (node server.js)</p>
+            <button onclick="loadApiInfo()">Lấy thông tin hệ thống</button>
             <div id="api-info"></div>
         </div>
         
@@ -31,46 +33,64 @@
     </div>
     
     <script>
-        async function loadApiInfo() {
-            try {
-                const response = await fetch('/api/info');
-                const data = await response.json();
-                document.getElementById('api-info').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
-            } catch (error) {
-                document.getElementById('api-info').innerHTML = `<p style="color: red;">Lỗi: ${error.message}</p>`;
-            }
+        // Dữ liệu tĩnh thay vì gọi API
+        const staticData = {
+            apiInfo: {
+                message: 'Frontend đang hoạt động trên GitHub Pages',
+                version: '1.0.0',
+                timestamp: new Date().toISOString(),
+                note: 'Backend cần deploy riêng để hoạt động đầy đủ'
+            },
+            users: [
+                {
+                    id: 1,
+                    name: "Nguyễn Văn A",
+                    email: "nguyenvana@example.com",
+                    role: "admin"
+                },
+                {
+                    id: 2,
+                    name: "Trần Thị B",
+                    email: "tranthib@example.com",
+                    role: "user"
+                }
+            ],
+            projects: [
+                {
+                    id: 1,
+                    name: "Git-GitHub Demo",
+                    description: "Dự án demo cho bài tập Git và GitHub",
+                    status: "active",
+                    created_by: 1
+                }
+            ]
+        };
+
+        function loadApiInfo() {
+            const data = staticData.apiInfo;
+            document.getElementById('api-info').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
         }
         
-        async function loadUsers() {
-            try {
-                const response = await fetch('/api/users');
-                const users = await response.json();
-                const html = users.map(user => `
-                    <div class="item">
-                        <strong>${user.name}</strong> - ${user.email} (${user.role})
-                    </div>
-                `).join('');
-                document.getElementById('users-list').innerHTML = html;
-            } catch (error) {
-                document.getElementById('users-list').innerHTML = `<p style="color: red;">Lỗi: ${error.message}</p>`;
-            }
+        function loadUsers() {
+            const users = staticData.users;
+            const html = users.map(user => `
+                <div class="item">
+                    <strong>${user.name}</strong> - ${user.email} (${user.role})
+                </div>
+            `).join('');
+            document.getElementById('users-list').innerHTML = html;
         }
         
-        async function loadProjects() {
-            try {
-                const response = await fetch('/api/projects');
-                const projects = await response.json();
-                const html = projects.map(project => `
-                    <div class="item">
-                        <strong>${project.name}</strong><br>
-                        ${project.description}<br>
-                        <small>Status: ${project.status}</small>
-                    </div>
-                `).join('');
-                document.getElementById('projects-list').innerHTML = html;
-            } catch (error) {
-                document.getElementById('projects-list').innerHTML = `<p style="color: red;">Lỗi: ${error.message}</p>`;
-            }
+        function loadProjects() {
+            const projects = staticData.projects;
+            const html = projects.map(project => `
+                <div class="item">
+                    <strong>${project.name}</strong><br>
+                    ${project.description}<br>
+                    <small>Status: ${project.status}</small>
+                </div>
+            `).join('');
+            document.getElementById('projects-list').innerHTML = html;
         }
     </script>
 </body>
